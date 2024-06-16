@@ -1,11 +1,10 @@
 import "./App.css";
+import MovieList from "./components/MovieList";
 
 function App() {
   return (
     <div>
-      <h1 className="underline">hello</h1>
-      <button className="btn">Button</button>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <MovieList />
     </div>
   );
 }
