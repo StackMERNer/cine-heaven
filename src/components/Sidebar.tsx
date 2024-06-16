@@ -8,8 +8,6 @@ interface SidebarProps {
 const Sidebar = ({ showSidebar }: SidebarProps) => {
   const movieGenres = useMovieGenres();
   const tvGenres = useTvGenres();
-  //sm:relative sm:h-auto sm:max-h-max
-  console.log("showSidebar", showSidebar);
   return (
     <div
       className={clsx(

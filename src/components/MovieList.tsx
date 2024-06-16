@@ -4,7 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { usePopularMovies } from "../hooks/usePopularMovies";
 import MovieCard from "./MovieCard";
 
-const MovieList = ({ className }: { className: string }) => {
+const MovieList = ({ className }: { className?: string }) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, error } =
     usePopularMovies();
   const { ref, inView } = useInView();
@@ -20,7 +20,7 @@ const MovieList = ({ className }: { className: string }) => {
   return (
     <div className={clsx("container mx-auto px-2", className)}>
       <h1 className="text-brand sm:text-2xl text-xl font-bold py-1 mb-2 inline-block px-2">
-        Popular
+        Trending
       </h1>
       <div className="grid md:grid-cols-6 sm:grid-cols-5 xs:grid-cols-4 grid-cols-3 gap-3">
         {data?.pages.map((page) =>
