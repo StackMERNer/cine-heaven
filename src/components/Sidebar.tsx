@@ -8,12 +8,19 @@ interface SidebarProps {
 const Sidebar = ({ showSidebar }: SidebarProps) => {
   const movieGenres = useMovieGenres();
   const tvGenres = useTvGenres();
+  //sm:relative sm:h-auto sm:max-h-max
+  console.log("showSidebar", showSidebar);
   return (
     <div
-      className={clsx("p-5 sm:block", {
-        "sm:relative sm:h-auto sm:max-h-max fixed left-0 top-12 bg-dark-primary overflow-y-scroll p-4 max-h-[90vh] grid grid-cols-2":
-          showSidebar,
-      })}
+      className={clsx(
+        "p-5 fixed left-0 top-12 z-10 bg-dark-primary   overflow-y-scroll max-h-[90vh] ",
+        {
+          "grid grid-cols-2": showSidebar,
+        },
+        {
+          hidden: !showSidebar,
+        }
+      )}
     >
       <div>
         <h1 className="text-xl font-bold  py-1 text-brand">Movies</h1>

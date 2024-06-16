@@ -8,6 +8,7 @@ import { CiSearch } from "react-icons/ci";
 import { FaBars } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import { PiTelevisionThin } from "react-icons/pi";
+import Sidebar from "./Sidebar";
 interface DropdownState {
   movies: boolean;
   tvShows: boolean;
@@ -34,65 +35,67 @@ const Header = ({ onHamburgerClick, showSidebar }: HeaderProps) => {
     }));
   };
   return (
-    <nav className="navbar  bg-dark-primary text-white flex items-center justify-between py-3 sticky top-0 z-10">
-      <div className="">
-        <div className="  text-xl uppercase font-bold flex items-center gap-2">
-          <div className="sm:hidden block">
-            {!showSidebar ? (
-              <FaBars
-                onClick={() => onHamburgerClick(!showSidebar)}
-                className="cursor-pointer"
-                size={25}
-              />
-            ) : (
-              <ImCross
-                className="cursor-pointer"
-                onClick={() => onHamburgerClick(!showSidebar)}
-              />
-            )}
-          </div>
+    <>
+      <nav className="navbar bg-dark-primary text-white flex items-center justify-between py-3 sticky top-0 z-10">
+        <div className="">
+          <div className="  text-xl uppercase font-bold flex items-center gap-2">
+            <div className="sm:hidden block">
+              {!showSidebar ? (
+                <FaBars
+                  onClick={() => onHamburgerClick(!showSidebar)}
+                  className="cursor-pointer"
+                  size={25}
+                />
+              ) : (
+                <ImCross
+                  className="cursor-pointer"
+                  onClick={() => onHamburgerClick(!showSidebar)}
+                />
+              )}
+            </div>
 
-          <PiTelevisionThin className="" size={30} />
-          <h1>
-            <span className="text-brand-primary">Cine</span> Heaven
-          </h1>
-        </div>
-        <div className="menu menu-horizontal px-1 sm:block hidden">
-          <div className="flex gap-2 items-center">
-            <button
-              className="flex items-center gap-1"
-              onClick={() => toggleDropdown("movies")}
-            >
-              Movies{" "}
-              {dropdownState.movies ? <BsChevronUp /> : <BsChevronDown />}
-            </button>
-            <button
-              className="flex items-center gap-1"
-              onClick={() => toggleDropdown("tvShows")}
-            >
-              TV Shows{" "}
-              {dropdownState.tvShows ? <BsChevronUp /> : <BsChevronDown />}
-            </button>
+            <PiTelevisionThin className="" size={30} />
+            <h1>
+              <span className="text-brand-primary">Cine</span> Heaven
+            </h1>
           </div>
-          {dropdownState.movies && <GenreList genres={movieGenres} />}
-          {dropdownState.tvShows && <GenreList genres={tvGenres} />}
+          <div className="menu menu-horizontal px-1 sm:block hidden">
+            <div className="flex gap-2 items-center">
+              <button
+                className="flex items-center gap-1"
+                onClick={() => toggleDropdown("movies")}
+              >
+                Movies{" "}
+                {dropdownState.movies ? <BsChevronUp /> : <BsChevronDown />}
+              </button>
+              <button
+                className="flex items-center gap-1"
+                onClick={() => toggleDropdown("tvShows")}
+              >
+                TV Shows{" "}
+                {dropdownState.tvShows ? <BsChevronUp /> : <BsChevronDown />}
+              </button>
+            </div>
+            {dropdownState.movies && <GenreList genres={movieGenres} />}
+            {dropdownState.tvShows && <GenreList genres={tvGenres} />}
+          </div>
         </div>
-      </div>
-
-      <div className="gap-2">
-        <div className="form-control relative ">
-          <CiSearch
-            className="absolute left-2 translate-y-[50%] font-bold"
-            size={25}
-          />
-          <input
-            type="text"
-            placeholder="Search movies"
-            className="pl-10 input input-bordered w-full sm:w-[50vw] bg-dark-secondary"
-          />
+        <div className="gap-2">
+          <div className="form-control relative ">
+            <CiSearch
+              className="absolute left-2 translate-y-[50%] font-bold"
+              size={25}
+            />
+            <input
+              type="text"
+              placeholder="Search movies"
+              className="pl-10 input input-bordered w-full sm:w-[50vw] bg-dark-secondary"
+            />
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+      <Sidebar showSidebar={showSidebar} />
+    </>
   );
 };
 

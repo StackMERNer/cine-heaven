@@ -1,8 +1,7 @@
 import { useState } from "react";
 import "./App.css";
+import AppRoutes from "./components/AppRoutes";
 import Header from "./components/Header";
-import MovieList from "./components/MovieList";
-import Sidebar from "./components/Sidebar";
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -12,10 +11,7 @@ function App() {
         showSidebar={showSidebar}
         onHamburgerClick={(value) => setShowSidebar(value)}
       />
-      <div className="grid sm:grid-cols-[4fr,1fr] px-3">
-        <MovieList />
-        <Sidebar showSidebar={showSidebar} />
-      </div>
+      <AppRoutes />
     </div>
   );
 }
