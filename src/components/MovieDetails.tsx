@@ -37,24 +37,29 @@ interface MovieDetails {
 }
 
 const MovieDetails: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { movieId, mediaType } = useParams<{
+    mediaType: string;
+    movieId: string;
+  }>();
   const [movie, setMovie] = useState<MovieDetails | null>(null);
 
   useEffect(() => {
     apiClient
-      .get<MovieDetails>(`/movie/${id}`)
+      .get<MovieDetails>(`/${mediaType}/${movieId}`)
       .then((res) => {
         setMovie(res.data);
       })
       .catch((err) => console.log(err));
-  }, [id]);
+  }, [movieId, mediaType]);
 
   if (!movie) return <div className="p-4">Loading...</div>;
 
   return (
-    <div className="p-4">
+    <section className="p-4 min-h-[100vh]">
       <h1 className="sm:text-3xl text-xl  font-bold mb-2">{movie.title}</h1>
-      {movie.tagline && <p className="italic text-gray-200 mb-4">{movie.tagline}</p>}
+      {movie.tagline && (
+        <p className="italic text-gray-200 mb-4">{movie.tagline}</p>
+      )}
       <div className="flex flex-col lg:flex-row">
         {movie.poster_path && (
           <img
@@ -67,7 +72,9 @@ const MovieDetails: React.FC = () => {
           <p className="mb-4">{movie.overview}</p>
           <p className="mb-2">Released Date: {movie.release_date}</p>
           <p className="mb-2">Runtime: {movie.runtime} minutes</p>
-          <p className="mb-2">Genres: {movie.genres.map((genre) => genre.name).join(", ")}</p>
+          <p className="mb-2">
+            Genres: {movie.genres.map((genre) => genre.name).join(", ")}
+          </p>
           <p className="mb-2">Production Companies:</p>
           <ul className="list-disc pl-4 mb-4">
             {movie.production_companies.map((company) => (
@@ -98,7 +105,7 @@ const MovieDetails: React.FC = () => {
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

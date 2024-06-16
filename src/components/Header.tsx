@@ -37,9 +37,12 @@ const Header = ({ onHamburgerClick, showSidebar }: HeaderProps) => {
   };
   return (
     <>
-      <nav className="navbar bg-dark-primary text-white flex items-center justify-between py-3 sticky top-0 z-10">
+      <nav className="navbar clear-both bg-dark-primary text-white flex items-center justify-between py-3 sticky top-0 z-10">
         <div className="">
-          <Link to='/' className="text-xl uppercase font-bold flex items-center gap-2">
+          <Link
+            to="/"
+            className="text-xl uppercase font-bold flex items-center gap-2"
+          >
             <div className="sm:hidden block">
               {!showSidebar ? (
                 <FaBars
@@ -77,8 +80,12 @@ const Header = ({ onHamburgerClick, showSidebar }: HeaderProps) => {
                 {dropdownState.tvShows ? <BsChevronUp /> : <BsChevronDown />}
               </button>
             </div>
-            {dropdownState.movies && <GenreList genres={movieGenres} />}
-            {dropdownState.tvShows && <GenreList genres={tvGenres} />}
+            {dropdownState.movies && (
+              <GenreList mediaType="movie" genres={movieGenres} />
+            )}
+            {dropdownState.tvShows && (
+              <GenreList mediaType="tv" genres={tvGenres} />
+            )}
           </div>
         </div>
         <div className="gap-2">

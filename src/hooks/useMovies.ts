@@ -1,6 +1,8 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import apiClient from "../services/apiClient";
 import ms from "ms";
+
+export type MediaType = "tv" | "movie";
 export interface Movie {
   adult: boolean;
   backdrop_path: string;
@@ -25,21 +27,25 @@ interface ApiResponse {
   total_results: number;
 }
 
-const fetchPopularMovies = async ({
+const fetchMovies = async ({
   pageParam = 1,
+  endpoint,
+  params = {},
 }: {
-  pageParam: number | unknown;
+  pageParam?: number | unknown;
+  endpoint: string;
+  params?: object;
 }): Promise<ApiResponse> => {
-  const response = await apiClient.get("/movie/popular", {
-    params: { page: pageParam },
+  const response = await apiClient.get(endpoint, {
+    params: { page: pageParam, ...params },
   });
   return response.data;
 };
 
-export const usePopularMovies = () => {
+export const useMovies = (endpoint: string, params: object = {}) => {
   return useInfiniteQuery<ApiResponse, Error>({
-    queryKey: ["popularMovies"],
-    queryFn: ({ pageParam }) => fetchPopularMovies({ pageParam }),
+    queryKey: [endpoint, params],
+    queryFn: ({ pageParam }) => fetchMovies({ pageParam, endpoint, params }),
     getNextPageParam: (lastPage: ApiResponse) => {
       return lastPage.page < lastPage.total_pages
         ? lastPage.page + 1
@@ -47,5 +53,21 @@ export const usePopularMovies = () => {
     },
     staleTime: ms("24h"),
     initialPageParam: 1,
+  });
+};
+
+export const usePopularMovies = () => {
+  return useMovies("/movie/popular");
+};
+
+export const useGenreMovies = ({
+  genreId,
+  mediaType,
+}: {
+  genreId: number;
+  mediaType?: string;
+}) => {
+  return useMovies(`/discover/${mediaType ?? "movie"}`, {
+    with_genres: genreId,
   });
 };

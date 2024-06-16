@@ -6,7 +6,7 @@ import Header from "./components/Header";
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
   return (
-    <div className="bg-dark-primary text-white">
+    <div className="bg-dark-primary text-white py-5">
       <Header
         showSidebar={showSidebar}
         onHamburgerClick={(value) => setShowSidebar(value)}

@@ -1,12 +1,30 @@
 import clsx from "clsx";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { usePopularMovies } from "../hooks/usePopularMovies";
-import MovieCard from "./MovieCard";
 
-const MovieList = ({ className }: { className?: string }) => {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, error } =
-    usePopularMovies();
+import MovieCard from "./MovieCard";
+import { InfiniteData } from "@tanstack/react-query";
+import { Movie, MediaType } from "../hooks/useMovies";
+interface MovieListProps {
+  mediaType: MediaType;
+  heading: string | null;
+  className?: string;
+  data?: InfiniteData<{ results: Movie[] }>;
+  fetchNextPage: () => void;
+  hasNextPage: boolean | undefined;
+  isFetchingNextPage: boolean;
+  error?: Error | null;
+}
+const MovieList = ({
+  heading,
+  className,
+  data,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
+  error,
+  mediaType,
+}: MovieListProps) => {
   const { ref, inView } = useInView();
 
   useEffect(() => {
@@ -19,13 +37,13 @@ const MovieList = ({ className }: { className?: string }) => {
 
   return (
     <div className={clsx("container mx-auto px-2", className)}>
-      <h1 className="text-brand sm:text-2xl text-xl font-bold py-1 mb-2 inline-block px-2">
-        Trending
+      <h1 className="text-brand sm:text-2xl text-xl font-bold py-1 mb-2 inline-block px-2 capitalize">
+        {heading}
       </h1>
       <div className="grid md:grid-cols-6 sm:grid-cols-5 xs:grid-cols-4 grid-cols-3 gap-3">
         {data?.pages.map((page) =>
           page.results.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
+            <MovieCard mediaType={mediaType} key={movie.id} movie={movie} />
           ))
         )}
       </div>

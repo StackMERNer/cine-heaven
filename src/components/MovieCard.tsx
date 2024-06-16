@@ -2,15 +2,17 @@ import React from "react";
 import { IoPlaySkipForward } from "react-icons/io5";
 import { Movie } from "../hooks/usePopularMovies";
 import { Link } from "react-router-dom";
+import { MediaType } from "../hooks/useMovies";
 
 interface MovieCardProps {
   movie: Movie;
+  mediaType: MediaType;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ movie, mediaType }) => {
   // console.log('movie',movie);
   return (
-    <Link to={`${movie.id}`}>
+    <Link to={`/${mediaType}/${movie.id}`}>
       <div className="rounded-sm w-full  shadow-xl cursor-pointer">
         <figure className="group relative ">
           <img
