@@ -8,6 +8,9 @@ export default {
         dark: {
           primary: "#0F1010",
         },
+        brand: {
+          primary: "#DD0000",
+        },
       },
     },
   },

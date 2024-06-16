@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import "daisyui";
+
+.text-brand {
+  @apply border-l-4 border-brand-primary px-2;
+}

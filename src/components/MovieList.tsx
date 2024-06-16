@@ -17,9 +17,9 @@ const MovieList: React.FC = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="container mx-auto">
-      <h1 className="text-3xl font-bold text-center my-8">Popular Movies</h1>
-      <div className="grid grid-cols-4 gap-3">
+    <div className="container mx-auto px-2">
+      <h1 className="text-brand text-2xl font-bold py-3 mb-2 inline-block px-2">Popular Movies</h1>
+      <div className="grid grid-cols-5 gap-3">
         {data?.pages.map((page) =>
           page.results.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />

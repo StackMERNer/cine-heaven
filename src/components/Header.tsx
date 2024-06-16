@@ -28,7 +28,7 @@ const Header: React.FC = () => {
   return (
     <nav className="navbar relative bg-dark-primary text-white">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">Cine Heaven</a>
+        <a className="btn btn-ghost text-xl uppercase font-bold">Cine Heaven</a>
         <div className="menu menu-horizontal px-1 ">
           <div className="flex gap-2 items-center">
             <button

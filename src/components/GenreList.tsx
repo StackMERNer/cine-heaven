@@ -17,7 +17,7 @@ const GenreList: React.FC<GenreListProps> = ({ genres }) => {
       {genres.map((genre) => (
         <a
           key={genre.id}
-          className="p-2 block hover:border-b-2 border-b-red-700 cursor-pointer"
+          className="p-2 block hover:text-brand-primary cursor-pointer"
         >
           {genre.name}
         </a>
