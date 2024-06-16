@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import useMovieGenres from "../hooks/useMovieGenres";
 import useTvGenres from "../hooks/useTvGenres";
 import GenreList from "./GenreList";
@@ -6,8 +6,8 @@ import GenreList from "./GenreList";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
 import { FaBars } from "react-icons/fa";
-import { PiTelevisionThin } from "react-icons/pi";
 import { ImCross } from "react-icons/im";
+import { PiTelevisionThin } from "react-icons/pi";
 interface DropdownState {
   movies: boolean;
   tvShows: boolean;
