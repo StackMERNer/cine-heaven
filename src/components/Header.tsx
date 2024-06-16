@@ -2,14 +2,21 @@ import React, { useState } from "react";
 import useMovieGenres from "../hooks/useMovieGenres";
 import useTvGenres from "../hooks/useTvGenres";
 import GenreList from "./GenreList";
+
+import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import { CiSearch } from "react-icons/ci";
+import { FaBars } from "react-icons/fa";
+import { PiTelevisionThin } from "react-icons/pi";
+import { ImCross } from "react-icons/im";
 interface DropdownState {
   movies: boolean;
   tvShows: boolean;
 }
-import { BsChevronDown, BsChevronUp } from "react-icons/bs";
-import { PiTelevisionThin } from "react-icons/pi";
-import { CiSearch } from "react-icons/ci";
-const Header: React.FC = () => {
+interface HeaderProps {
+  showSidebar: boolean;
+  onHamburgerClick: (value: boolean) => void;
+}
+const Header = ({ onHamburgerClick, showSidebar }: HeaderProps) => {
   const movieGenres = useMovieGenres();
   const tvGenres = useTvGenres();
   const [dropdownState, setDropdownState] = useState<DropdownState>({
@@ -26,17 +33,31 @@ const Header: React.FC = () => {
       }, {} as DropdownState),
     }));
   };
-
   return (
-    <nav className="navbar relative bg-dark-primary text-white flex items-center justify-between py-3">
+    <nav className="navbar  bg-dark-primary text-white flex items-center justify-between py-3 sticky top-0">
       <div className="">
-        <div className="btn btn-ghost text-xl uppercase font-bold flex items-center gap-2">
+        <div className="  text-xl uppercase font-bold flex items-center gap-2">
+          <div className="sm:hidden block">
+            {!showSidebar ? (
+              <FaBars
+                onClick={() => onHamburgerClick(!showSidebar)}
+                className="cursor-pointer"
+                size={25}
+              />
+            ) : (
+              <ImCross
+                className="cursor-pointer"
+                onClick={() => onHamburgerClick(!showSidebar)}
+              />
+            )}
+          </div>
+
           <PiTelevisionThin className="" size={30} />
           <h1>
             <span className="text-brand-primary">Cine</span> Heaven
           </h1>
         </div>
-        <div className="menu menu-horizontal px-1 ">
+        <div className="menu menu-horizontal px-1 sm:block hidden">
           <div className="flex gap-2 items-center">
             <button
               className="flex items-center gap-1"
@@ -60,7 +81,10 @@ const Header: React.FC = () => {
 
       <div className="gap-2">
         <div className="form-control relative ">
-          <CiSearch className="absolute left-2 translate-y-[50%] font-bold" size={25} />
+          <CiSearch
+            className="absolute left-2 translate-y-[50%] font-bold"
+            size={25}
+          />
           <input
             type="text"
             placeholder="Search movies"

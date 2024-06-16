@@ -1,15 +1,22 @@
+import clsx from "clsx";
 import useMovieGenres from "../hooks/useMovieGenres";
 import useTvGenres from "../hooks/useTvGenres";
 
-const Sidebar = () => {
+interface SidebarProps {
+  showSidebar: boolean;
+}
+const Sidebar = ({ showSidebar }: SidebarProps) => {
   const movieGenres = useMovieGenres();
   const tvGenres = useTvGenres();
   return (
-    <div className="p-5">
+    <div
+      className={clsx("p-5 sm:block", {
+        "sm:relative sm:h-auto sm:max-h-max fixed left-0 top-12 bg-dark-primary overflow-y-scroll p-4 max-h-[90vh] grid grid-cols-2":
+          showSidebar,
+      })}
+    >
       <div>
-        <h1 className="text-xl font-bold  py-1 text-brand">
-          Movies
-        </h1>
+        <h1 className="text-xl font-bold  py-1 text-brand">Movies</h1>
         <div className="flex flex-col">
           {movieGenres.map((genre) => (
             <a
