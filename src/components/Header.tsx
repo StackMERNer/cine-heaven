@@ -34,7 +34,7 @@ const Header = ({ onHamburgerClick, showSidebar }: HeaderProps) => {
     }));
   };
   return (
-    <nav className="navbar  bg-dark-primary text-white flex items-center justify-between py-3 sticky top-0">
+    <nav className="navbar  bg-dark-primary text-white flex items-center justify-between py-3 sticky top-0 z-10">
       <div className="">
         <div className="  text-xl uppercase font-bold flex items-center gap-2">
           <div className="sm:hidden block">
