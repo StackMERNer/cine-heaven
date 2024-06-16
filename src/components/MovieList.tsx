@@ -18,7 +18,7 @@ const MovieList: React.FC = () => {
 
   return (
     <div className="container mx-auto px-2">
-      <h1 className="text-brand text-2xl font-bold py-3 mb-2 inline-block px-2">Popular Movies</h1>
+      <h1 className="text-brand sm:text-2xl text-xl font-bold py-1 mb-2 inline-block px-2">Popular</h1>
       <div className="grid md:grid-cols-6 sm:grid-cols-5 xs:grid-cols-4 grid-cols-3 gap-3">
         {data?.pages.map((page) =>
           page.results.map((movie) => (
