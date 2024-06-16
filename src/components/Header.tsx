@@ -26,7 +26,7 @@ const Header = ({ onHamburgerClick, showSidebar }: HeaderProps) => {
     tvShows: false,
   });
 
-  const toggleDropdown = (name: keyof DropdownState) => {
+  const toggleDropdown = (name: keyof DropdownState | "closeAll") => {
     setDropdownState((prevState) => ({
       ...Object.keys(prevState).reduce((acc, key) => {
         acc[key as keyof DropdownState] =
@@ -81,10 +81,18 @@ const Header = ({ onHamburgerClick, showSidebar }: HeaderProps) => {
               </button>
             </div>
             {dropdownState.movies && (
-              <GenreList mediaType="movie" genres={movieGenres} />
+              <GenreList
+                onGenreClick={() => toggleDropdown("closeAll")}
+                mediaType="movie"
+                genres={movieGenres}
+              />
             )}
             {dropdownState.tvShows && (
-              <GenreList mediaType="tv" genres={tvGenres} />
+              <GenreList
+                onGenreClick={() => toggleDropdown("closeAll")}
+                mediaType="tv"
+                genres={tvGenres}
+              />
             )}
           </div>
         </div>
