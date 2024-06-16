@@ -1,65 +1,35 @@
-import React, { useEffect, useState } from "react";
-
-// Assume MovieCard component is created separately
-import usePopularMovies, { Movie } from "../hooks/usePopularMovies";
+import React, { useEffect } from "react";
+import { usePopularMovies } from "../hooks/usePopularMovies";
 import MovieCard from "./MovieCard";
+import { useInView } from "react-intersection-observer";
 
 const MovieList: React.FC = () => {
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [page, setPage] = useState<number>(1); // Track the current page of movies
-  const [isFetching, setIsFetching] = useState<boolean>(false);
-  const { popularMoviesResponse, isLoading, error } = usePopularMovies(page);
-  useEffect(() => {
-    if (popularMoviesResponse?.results) {
-      setMovies(popularMoviesResponse.results);
-    }
-  }, [popularMoviesResponse]);
-
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
-    ) {
-      // User has scrolled to the bottom
-      //   fetchMoreMovies();
-    }
-  };
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, error } =
+    usePopularMovies();
+  const { ref, inView } = useInView();
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, fetchNextPage, hasNextPage]);
 
-  //   const fetchMoreMovies = async () => {
-  //     if (isFetching) return;
-  //     setIsFetching(true);
-  //     try {
-  //       const nextPage = page + 1;
-  //       const apiClient = new APIClient<ApiResponse>(
-  //         `/movie/popular?page=${nextPage}`
-  //       );
-  //       const newMovies = await apiClient.get();
-  //       setMovies((prevMovies) => [...prevMovies, ...newMovies.results]);
-  //       setPage(nextPage);
-  //     } catch (error) {
-  //       console.error("Error fetching more movies:", error);
-  //     } finally {
-  //       setIsFetching(false);
-  //     }
-  //   };
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div>
-      <h1>Popular Movies</h1>
-      <div className="movie-list">
-        {movies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
+    <div className="container mx-auto">
+      <h1 className="text-3xl font-bold text-center my-8">Popular Movies</h1>
+      <div className="grid grid-cols-4 gap-3">
+        {data?.pages.map((page) =>
+          page.results.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))
+        )}
       </div>
-      {isFetching && <div>Loading more movies...</div>}
+      <div ref={ref} className="h-1 bg-transparent"></div>
+      {isFetchingNextPage && (
+        <div className="text-center my-4">Loading more movies...</div>
+      )}
     </div>
   );
 };

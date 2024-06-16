@@ -7,7 +7,7 @@ interface MovieCardProps {
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   return (
-    <div className="card w-96 bg-base-100 shadow-xl m-4">
+    <div className="card w-full bg-base-100 shadow-xl">
       <figure>
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

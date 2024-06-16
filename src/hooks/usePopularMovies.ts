@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import APIClient from "../services/apiClient";
-
+import { useInfiniteQuery } from "@tanstack/react-query";
+import apiClient from "../services/apiClient";
+import ms from "ms";
 export interface Movie {
   adult: boolean;
   backdrop_path: string;
@@ -25,31 +25,27 @@ interface ApiResponse {
   total_results: number;
 }
 
-const usePopularMovies = (page = 1) => {
-  const [popularMoviesResponse, setPopularMoviesResponse] =
-    useState<ApiResponse>();
-  const [error, setError] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const apiClient = new APIClient<ApiResponse>(
-      `/movie/popular?page=${page}`
-    );
-    apiClient
-      .get()
-      .then((res) => setPopularMoviesResponse(res))
-      .catch((err) => {
-        console.log(err);
-        setError(err.message);
-      })
-      .finally(() => setIsLoading(false));
-  }, [page]);
-
-  return {
-    popularMoviesResponse,
-    isLoading,
-    error,
-  };
+const fetchPopularMovies = async ({
+  pageParam = 1,
+}: {
+  pageParam: number | unknown;
+}): Promise<ApiResponse> => {
+  const response = await apiClient.get("/movie/popular", {
+    params: { page: pageParam },
+  });
+  return response.data;
 };
 
-export default usePopularMovies;
+export const usePopularMovies = () => {
+  return useInfiniteQuery<ApiResponse, Error>({
+    queryKey: ["popularMovies"],
+    queryFn: ({ pageParam }) => fetchPopularMovies({ pageParam }),
+    getNextPageParam: (lastPage: ApiResponse) => {
+      return lastPage.page < lastPage.total_pages
+        ? lastPage.page + 1
+        : undefined;
+    },
+    staleTime: ms("24h"),
+    initialPageParam: 1,
+  });
+};
