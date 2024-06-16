@@ -9,6 +9,7 @@ import { FaBars } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import { PiTelevisionThin } from "react-icons/pi";
 import Sidebar from "./Sidebar";
+import { Link } from "react-router-dom";
 interface DropdownState {
   movies: boolean;
   tvShows: boolean;
@@ -38,7 +39,7 @@ const Header = ({ onHamburgerClick, showSidebar }: HeaderProps) => {
     <>
       <nav className="navbar bg-dark-primary text-white flex items-center justify-between py-3 sticky top-0 z-10">
         <div className="">
-          <div className="  text-xl uppercase font-bold flex items-center gap-2">
+          <Link to='/' className="text-xl uppercase font-bold flex items-center gap-2">
             <div className="sm:hidden block">
               {!showSidebar ? (
                 <FaBars
@@ -58,7 +59,7 @@ const Header = ({ onHamburgerClick, showSidebar }: HeaderProps) => {
             <h1>
               <span className="text-brand-primary">Cine</span> Heaven
             </h1>
-          </div>
+          </Link>
           <div className="menu menu-horizontal px-1 sm:block hidden">
             <div className="flex gap-2 items-center">
               <button
