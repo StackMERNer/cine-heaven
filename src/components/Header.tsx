@@ -7,6 +7,8 @@ interface DropdownState {
   tvShows: boolean;
 }
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import { PiTelevisionThin } from "react-icons/pi";
+import { CiSearch } from "react-icons/ci";
 const Header: React.FC = () => {
   const movieGenres = useMovieGenres();
   const tvGenres = useTvGenres();
@@ -26,9 +28,14 @@ const Header: React.FC = () => {
   };
 
   return (
-    <nav className="navbar relative bg-dark-primary text-white">
-      <div className="flex-1">
-        <a className="btn btn-ghost text-xl uppercase font-bold">Cine Heaven</a>
+    <nav className="navbar relative bg-dark-primary text-white flex items-center justify-between py-3">
+      <div className="">
+        <div className="btn btn-ghost text-xl uppercase font-bold flex items-center gap-2">
+          <PiTelevisionThin className="" size={30} />
+          <h1>
+            <span className="text-brand-primary">Cine</span> Heaven
+          </h1>
+        </div>
         <div className="menu menu-horizontal px-1 ">
           <div className="flex gap-2 items-center">
             <button
@@ -51,12 +58,13 @@ const Header: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex-none gap-2">
-        <div className="form-control">
+      <div className="gap-2">
+        <div className="form-control relative ">
+          <CiSearch className="absolute left-2 translate-y-[50%] font-bold" size={25} />
           <input
             type="text"
-            placeholder="Search"
-            className="input input-bordered w-24 md:w-auto"
+            placeholder="Search movies"
+            className="pl-10 input input-bordered w-full sm:w-[50vw] bg-dark-secondary"
           />
         </div>
       </div>

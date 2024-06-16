@@ -7,6 +7,7 @@ export default {
       colors: {
         dark: {
           primary: "#0F1010",
+          secondary: "#272727",
         },
         brand: {
           primary: "#DD0000",
