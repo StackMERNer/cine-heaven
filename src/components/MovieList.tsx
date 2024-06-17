@@ -5,6 +5,7 @@ import { useInView } from "react-intersection-observer";
 import MovieCard from "./MovieCard";
 import { InfiniteData } from "@tanstack/react-query";
 import { Movie, MediaType } from "../hooks/useMovies";
+import MovieCardSkeleton from "./MovieCardSkeleton";
 interface MovieListProps {
   mediaType: MediaType;
   genreName: string | null;
@@ -26,7 +27,6 @@ const MovieList = ({
   mediaType,
 }: MovieListProps) => {
   const { ref, inView } = useInView();
-
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
@@ -46,11 +46,15 @@ const MovieList = ({
             <MovieCard mediaType={mediaType} key={movie.id} movie={movie} />
           ))
         )}
+        {(isFetchingNextPage || !data?.pages.length) && (
+          <>
+            {[...new Array(12)].map((_, i) => (
+              <MovieCardSkeleton key={i} />
+            ))}
+          </>
+        )}
       </div>
       <div ref={ref} className="h-1 bg-transparent"></div>
-      {isFetchingNextPage && (
-        <div className="text-center my-4">Loading more movies...</div>
-      )}
     </div>
   );
 };
