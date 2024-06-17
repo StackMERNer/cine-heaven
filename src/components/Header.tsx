@@ -4,13 +4,12 @@ import useTvGenres from "../hooks/useTvGenres";
 import GenreList from "./GenreList";
 
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
-import { CiSearch } from "react-icons/ci";
 import { FaBars } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import { PiTelevisionThin } from "react-icons/pi";
-import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import Sidebar from "./Sidebar";
 interface DropdownState {
   movies: boolean;
   tvShows: boolean;

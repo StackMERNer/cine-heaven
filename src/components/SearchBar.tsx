@@ -4,6 +4,7 @@ import { CiSearch } from "react-icons/ci";
 import { ImCross } from "react-icons/im";
 import SearchItemSkeleton from "./SearchItemSkeleton";
 import { Link } from "react-router-dom";
+import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 
 interface SearchResult {
   id: number;
@@ -21,6 +22,7 @@ const SearchBar: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState("");
+  const [collapseResults, setCollapseResults] = useState(false);
   const handleSearch = () => {
     if (!query) return;
     setMessage("");
@@ -48,6 +50,7 @@ const SearchBar: React.FC = () => {
         if (!accumulatedResult.length) {
           setMessage(`No results found for "${query}"`);
         }
+        setCollapseResults(false);
         setResults(accumulatedResult);
       })
       .catch((err) => {
@@ -78,7 +81,21 @@ const SearchBar: React.FC = () => {
       </div>
       {(!!results.length || error || message || loading) && (
         <div className="absolute top-[120%] w-full p-3  rounded-lg bg-dark-secondary ">
-          <div className="p-2 justify-end flex">
+          <div className="p-2 items-center justify-between flex">
+            {collapseResults ? (
+              <BsChevronUp
+                onClick={() => setCollapseResults(!collapseResults)}
+                size={20}
+                className="cursor-pointer"
+              />
+            ) : (
+              <BsChevronDown
+                onClick={() => setCollapseResults(!collapseResults)}
+                size={20}
+                className="cursor-pointer"
+              />
+            )}
+            <p className="font-semibold">Results ({results.length})</p>
             <ImCross
               onClick={() => {
                 setResults([]);
@@ -99,37 +116,43 @@ const SearchBar: React.FC = () => {
             </div>
           )}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[60vh] overflow-y-scroll bg-dark-primary">
-            {loading && <SearchItemSkeleton />}
-            {results.map((result) => (
-              <Link key={result.id} to={`/${result.media_type}/${result.id}`}>
-                <div className="shadow-md rounded-lg overflow-hidden flex items-center  gap-2 cursor-pointer group">
-                  {result.poster_path ? (
-                    <img
-                      src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
-                      alt={result.title || result.name}
-                      className="w-[40px] object-cover"
-                    />
-                  ) : (
-                    <div className="w-[40px] flex items-center justify-center bg-gray-200">
-                      No Image
+          {!collapseResults && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[60vh] overflow-y-scroll bg-dark-primary">
+              {loading && <SearchItemSkeleton />}
+              {results.map((result) => (
+                <Link
+                  onClick={() => setCollapseResults(true)}
+                  key={result.id}
+                  to={`/${result.media_type}/${result.id}`}
+                >
+                  <div className="shadow-md rounded-lg overflow-hidden flex items-center  gap-2 cursor-pointer group">
+                    {result.poster_path ? (
+                      <img
+                        src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
+                        alt={result.title || result.name}
+                        className="w-[40px] object-cover"
+                      />
+                    ) : (
+                      <div className="w-[40px] flex items-center justify-center bg-gray-200">
+                        No Image
+                      </div>
+                    )}
+                    <div className="p-1 group-hover:text-brand-primary">
+                      <h2 className="font-semibold">
+                        {result.title || result.name}
+                      </h2>
+                      <p className="text-gray-200">
+                        {result.release_date || result.first_air_date}
+                      </p>
+                      <p className="text-sm text-yellow-400">
+                        {result.media_type === "movie" ? "Movie" : "TV Show"}
+                      </p>
                     </div>
-                  )}
-                  <div className="p-1 group-hover:text-brand-primary">
-                    <h2 className="font-semibold">
-                      {result.title || result.name}
-                    </h2>
-                    <p className="text-gray-200">
-                      {result.release_date || result.first_air_date}
-                    </p>
-                    <p className="text-sm text-yellow-400">
-                      {result.media_type === "movie" ? "Movie" : "TV Show"}
-                    </p>
                   </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>
