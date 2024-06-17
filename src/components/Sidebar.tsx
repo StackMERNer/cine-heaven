@@ -13,7 +13,7 @@ const Sidebar = ({ showSidebar, onGenreClick }: SidebarProps) => {
   return (
     <div
       className={clsx(
-        "p-5 fixed left-0 top-12 z-10 bg-dark-primary   overflow-y-scroll max-h-[90vh] ",
+        "p-5 fixed left-0 top-14 z-10 bg-dark-primary   overflow-y-scroll max-h-[90vh]",
         {
           "grid grid-cols-2": showSidebar,
         },

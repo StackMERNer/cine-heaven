@@ -2,7 +2,7 @@ import { usePopularMovies } from "../hooks/useMovies";
 import useTopRatedMovies from "../hooks/useTopRatedMovies";
 import useUpcomingMovies from "../hooks/useUpcomingMovies";
 import MovieList from "./MovieList";
-import TopRatedMovieList from "./TopRatedMovies";
+import TopRatedMovieCarousel from "./TopRatedMovieCarousel";
 import UpcomingMovieList from "./UpcomingMovieList";
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
     usePopularMovies();
   return (
     <div className="px-3">
-      <TopRatedMovieList className="px-2" movies={topRatedMovieData?.results} />
+      <TopRatedMovieCarousel movies={topRatedMovieData?.results}/>
       <div className=" grid md:grid-cols-[4fr,1fr] grid-cols-1 gap-4">
         <UpcomingMovieList
           className="md:order-1"
