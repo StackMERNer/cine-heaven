@@ -10,6 +10,7 @@ import { ImCross } from "react-icons/im";
 import { PiTelevisionThin } from "react-icons/pi";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
+import SearchBar from "./SearchBar";
 interface DropdownState {
   movies: boolean;
   tvShows: boolean;
@@ -96,7 +97,7 @@ const Header = ({ onHamburgerClick, showSidebar }: HeaderProps) => {
             )}
           </div>
         </div>
-        <div className="gap-2">
+        {/* <div className="gap-2">
           <div className="form-control relative ">
             <CiSearch
               className="absolute left-2 translate-y-[50%] font-bold"
@@ -108,7 +109,8 @@ const Header = ({ onHamburgerClick, showSidebar }: HeaderProps) => {
               className="pl-10 input input-bordered w-full sm:w-[50vw] bg-dark-secondary"
             />
           </div>
-        </div>
+        </div> */}
+        <SearchBar />
       </nav>
       <Sidebar showSidebar={showSidebar} />
     </>
