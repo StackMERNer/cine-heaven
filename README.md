@@ -1,30 +1,78 @@
-# React + TypeScript + Vite
+# Movie/TV Show Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the Movie/TV Show Explorer! This website allows you to search for movies and TV shows, discover content based on genres, and view detailed information about specific movies or TV shows. It is powered by the TMDB API.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Movie/TV Show Explorer](#movietv-show-explorer)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Technologies Used](#technologies-used)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Search Movies and TV Shows](#search-movies-and-tv-shows)
+    - [Discover by Genre](#discover-by-genre)
+    - [View Details](#view-details)
+  - [License](#license)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Search Movies and TV Shows:** Use the search bar to find your favorite movies and TV shows.
+- **Discover by Genre:** Browse movies and TV shows based on different genres.
+- **View Details:** Get detailed information about a specific movie or TV show, including the overview, release date, genres, production companies, vote average, and more.
 
-- Configure the top-level `parserOptions` property like this:
+## Technologies Used
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+- **Frontend:** React, TypeScript, Tailwind CSS, DaisyUI, React Router
+- **Backend:** TMDB API
+- **State Management:** React Hooks
+- **Styling:** Tailwind CSS, DaisyUI
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/movie-tv-explorer.git
+   cd movie-tv-explorer
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Create a `.env` file in the root directory and add your TMDB API key:
+   ```env
+   REACT_APP_TMDB_API_KEY=your_tmdb_api_key
+   ```
+
+4. Start the development server:
+   ```bash
+   npm start
+   ```
+
+5. Open your browser and navigate to `http://localhost:3000`.
+
+## Usage
+
+### Search Movies and TV Shows
+
+- Use the search bar at the top of the homepage to find movies and TV shows by name.
+- The search results will display both movies and TV shows that match your query.
+
+### Discover by Genre
+
+- Navigate to the "Discover" section to explore movies and TV shows by genre.
+- Select a genre from the list to see a collection of movies or TV shows that belong to that genre.
+
+### View Details
+
+- Click on any movie or TV show in the search results or genre lists to view detailed information.
+- The details page includes the title, tagline, overview, release date, runtime, genres, production companies, production countries, vote average, vote count, and a link to the homepage if available.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+Happy exploring!
 ```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
