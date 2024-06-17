@@ -1,8 +1,7 @@
 import React from "react";
 import { IoPlaySkipForward } from "react-icons/io5";
-import { Movie } from "../hooks/usePopularMovies";
 import { Link } from "react-router-dom";
-import { MediaType } from "../hooks/useMovies";
+import { MediaType, Movie } from "../hooks/useMovies";
 
 interface MovieCardProps {
   movie: Movie;

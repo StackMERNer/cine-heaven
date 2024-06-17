@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import apiClient from "../services/apiClient";
+import MovieDetailsSkeleton from "./MovieDetailsSkeleton";
 
 interface MovieDetails {
   adult: boolean;
@@ -52,7 +53,12 @@ const MovieDetails: React.FC = () => {
       .catch((err) => console.log(err));
   }, [movieId, mediaType]);
 
-  if (!movie) return <div className="p-4">Loading...</div>;
+  if (!movie)
+    return (
+      <div className="p-4">
+        <MovieDetailsSkeleton />
+      </div>
+    );
 
   return (
     <section className="p-4 min-h-[100vh]">
