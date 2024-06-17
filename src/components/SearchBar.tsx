@@ -2,15 +2,16 @@ import { useState } from "react";
 import apiClient from "../services/apiClient";
 import { CiSearch } from "react-icons/ci";
 import { ImCross } from "react-icons/im";
+import SearchItemSkeleton from "./SearchItemSkeleton";
 
 interface SearchResult {
   id: number;
-  title?: string; 
+  title?: string;
   name?: string;
   poster_path: string | null;
   media_type: "movie" | "tv";
-  release_date?: string; 
-  first_air_date?: string; 
+  release_date?: string;
+  first_air_date?: string;
 }
 
 const SearchBar: React.FC = () => {
@@ -18,10 +19,10 @@ const SearchBar: React.FC = () => {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
+  const [message, setMessage] = useState("");
   const handleSearch = () => {
     if (!query) return;
-
+    setMessage("");
     setLoading(true);
     setError(null);
 
@@ -42,8 +43,11 @@ const SearchBar: React.FC = () => {
           ...tvShow,
           media_type: "tv" as const,
         }));
-
-        setResults([...movieResults, ...tvResults]);
+        const accumulatedResult = [...movieResults, ...tvResults];
+        if (!accumulatedResult.length) {
+          setMessage(`No results found for "${query}"`);
+        }
+        setResults(accumulatedResult);
       })
       .catch((err) => {
         console.error(err);
@@ -53,8 +57,6 @@ const SearchBar: React.FC = () => {
         setLoading(false);
       });
   };
-
-  console.log("results", results);
   return (
     <div className="relative">
       <div className="gap-2">
@@ -64,7 +66,7 @@ const SearchBar: React.FC = () => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search for movies or TV shows..."
-            className="pl-10 input input-bordered w-full sm:w-[50vw] bg-dark-secondary"
+            className="pl-3 input input-bordered w-full sm:w-[50vw] bg-dark-secondary"
           />
           <CiSearch
             onClick={handleSearch}
@@ -73,19 +75,31 @@ const SearchBar: React.FC = () => {
           />
         </div>
       </div>
-      {loading && <div>Loading...</div>}
-      {error && <div>{error}</div>}
-      {!!results.length && (
+      {(!!results.length || error || message || loading) && (
         <div className="absolute top-[120%] w-full p-3  rounded-lg bg-dark-secondary ">
+          {message && (
+            <div className="p-2 text-brand-primary  font-semibold">
+              {message}
+            </div>
+          )}
+          {error && (
+            <div className="p-2 mt-1 text-brand-primary  font-semibold">
+              {error}
+            </div>
+          )}
           <div className="p-2 justify-between flex">
             <ImCross className="cursor-pointer" />
-            <ImCross className="cursor-pointer" />
+            <ImCross
+              onClick={() => setResults([])}
+              className="cursor-pointer"
+            />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[60vh] overflow-y-scroll ">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[60vh] overflow-y-scroll bg-dark-primary">
+            {loading && <SearchItemSkeleton />}
             {results.map((result) => (
               <div
                 key={result.id}
-                className="shadow-md rounded-lg overflow-hidden flex items-center bg-dark-primary gap-2 cursor-pointer group"
+                className="shadow-md rounded-lg overflow-hidden flex items-center  gap-2 cursor-pointer group"
               >
                 {result.poster_path ? (
                   <img
