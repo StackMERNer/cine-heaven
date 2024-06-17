@@ -1,11 +1,13 @@
 import clsx from "clsx";
 import useMovieGenres from "../hooks/useMovieGenres";
 import useTvGenres from "../hooks/useTvGenres";
+import { Link } from "react-router-dom";
 
 interface SidebarProps {
   showSidebar: boolean;
+  onGenreClick: () => void;
 }
-const Sidebar = ({ showSidebar }: SidebarProps) => {
+const Sidebar = ({ showSidebar, onGenreClick }: SidebarProps) => {
   const movieGenres = useMovieGenres();
   const tvGenres = useTvGenres();
   return (
@@ -24,12 +26,14 @@ const Sidebar = ({ showSidebar }: SidebarProps) => {
         <h1 className="text-xl font-bold  py-1 text-brand">Movies</h1>
         <div className="flex flex-col">
           {movieGenres.map((genre) => (
-            <a
+            <Link
+              onClick={onGenreClick}
+              to={`/discover/movie/${genre.id}?genre=${genre.name}`}
               key={genre.id}
               className="p-2 block hover:text-brand-primary cursor-pointer"
             >
               {genre.name}
-            </a>
+            </Link>
           ))}
         </div>
       </div>
@@ -39,12 +43,14 @@ const Sidebar = ({ showSidebar }: SidebarProps) => {
         </h1>
         <div className="flex flex-col">
           {tvGenres.map((genre) => (
-            <a
+            <Link
+              onClick={onGenreClick}
+              to={`/discover/tv/${genre.id}?genre=${genre.name}`}
               key={genre.id}
               className="p-2 block hover:text-brand-primary cursor-pointer"
             >
               {genre.name}
-            </a>
+            </Link>
           ))}
         </div>
       </div>

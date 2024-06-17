@@ -37,7 +37,7 @@ const Header = ({ onHamburgerClick, showSidebar }: HeaderProps) => {
   };
   return (
     <>
-      <nav className="navbar clear-both bg-dark-primary text-white flex items-center justify-between py-3 sticky top-0 z-10">
+      <nav className="navbar bg-dark-primary text-white flex items-center justify-between py-3 sticky top-0 z-10">
         <div className="">
           <Link
             to="/"
@@ -64,7 +64,7 @@ const Header = ({ onHamburgerClick, showSidebar }: HeaderProps) => {
             </h1>
           </Link>
           <div className="menu menu-horizontal px-1 sm:block hidden">
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center font-semibold">
               <button
                 className="flex items-center gap-1"
                 onClick={() => toggleDropdown("movies")}
@@ -111,7 +111,10 @@ const Header = ({ onHamburgerClick, showSidebar }: HeaderProps) => {
         </div> */}
         <SearchBar />
       </nav>
-      <Sidebar showSidebar={showSidebar} />
+      <Sidebar
+        onGenreClick={() => onHamburgerClick(false)}
+        showSidebar={showSidebar}
+      />
     </>
   );
 };
