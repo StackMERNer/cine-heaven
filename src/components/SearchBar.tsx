@@ -77,6 +77,16 @@ const SearchBar: React.FC = () => {
       </div>
       {(!!results.length || error || message || loading) && (
         <div className="absolute top-[120%] w-full p-3  rounded-lg bg-dark-secondary ">
+          <div className="p-2 justify-end flex">
+            <ImCross
+              onClick={() => {
+                setResults([]);
+                setError("");
+                setMessage("");
+              }}
+              className="cursor-pointer"
+            />
+          </div>
           {message && (
             <div className="p-2 text-brand-primary  font-semibold">
               {message}
@@ -87,13 +97,7 @@ const SearchBar: React.FC = () => {
               {error}
             </div>
           )}
-          <div className="p-2 justify-between flex">
-            <ImCross className="cursor-pointer" />
-            <ImCross
-              onClick={() => setResults([])}
-              className="cursor-pointer"
-            />
-          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[60vh] overflow-y-scroll bg-dark-primary">
             {loading && <SearchItemSkeleton />}
             {results.map((result) => (
