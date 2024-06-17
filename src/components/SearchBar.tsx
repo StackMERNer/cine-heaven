@@ -3,6 +3,7 @@ import apiClient from "../services/apiClient";
 import { CiSearch } from "react-icons/ci";
 import { ImCross } from "react-icons/im";
 import SearchItemSkeleton from "./SearchItemSkeleton";
+import { Link } from "react-router-dom";
 
 interface SearchResult {
   id: number;
@@ -101,33 +102,32 @@ const SearchBar: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[60vh] overflow-y-scroll bg-dark-primary">
             {loading && <SearchItemSkeleton />}
             {results.map((result) => (
-              <div
-                key={result.id}
-                className="shadow-md rounded-lg overflow-hidden flex items-center  gap-2 cursor-pointer group"
-              >
-                {result.poster_path ? (
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
-                    alt={result.title || result.name}
-                    className="w-[40px] object-cover"
-                  />
-                ) : (
-                  <div className="w-[40px] flex items-center justify-center bg-gray-200">
-                    No Image
+              <Link key={result.id} to={`/${result.media_type}/${result.id}`}>
+                <div className="shadow-md rounded-lg overflow-hidden flex items-center  gap-2 cursor-pointer group">
+                  {result.poster_path ? (
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
+                      alt={result.title || result.name}
+                      className="w-[40px] object-cover"
+                    />
+                  ) : (
+                    <div className="w-[40px] flex items-center justify-center bg-gray-200">
+                      No Image
+                    </div>
+                  )}
+                  <div className="p-1 group-hover:text-brand-primary">
+                    <h2 className="font-semibold">
+                      {result.title || result.name}
+                    </h2>
+                    <p className="text-gray-200">
+                      {result.release_date || result.first_air_date}
+                    </p>
+                    <p className="text-sm text-yellow-400">
+                      {result.media_type === "movie" ? "Movie" : "TV Show"}
+                    </p>
                   </div>
-                )}
-                <div className="p-1 group-hover:text-brand-primary">
-                  <h2 className="font-semibold">
-                    {result.title || result.name}
-                  </h2>
-                  <p className="text-gray-200">
-                    {result.release_date || result.first_air_date}
-                  </p>
-                  <p className="text-sm text-yellow-400">
-                    {result.media_type === "movie" ? "Movie" : "TV Show"}
-                  </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
