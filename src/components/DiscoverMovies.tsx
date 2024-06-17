@@ -7,7 +7,7 @@ const useQuery = () => {
 const DiscoverMovies = () => {
   const { genreId, mediaType } = useParams();
   const query = useQuery();
-  const name = query.get("name");
+  const genre = query.get("genre");
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, error } =
     useGenreMovies({ genreId: parseInt(genreId ?? "0"), mediaType });
 
@@ -15,7 +15,7 @@ const DiscoverMovies = () => {
     <div>
       <MovieList
         mediaType={mediaType as MediaType}
-        heading={name}
+        genreName={genre}
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}
         isFetchingNextPage={isFetchingNextPage}

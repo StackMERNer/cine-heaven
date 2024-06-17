@@ -20,7 +20,7 @@ const Home = () => {
         />
         <MovieList
           mediaType="movie"
-          heading="Trending"
+          genreName="Trending"
           fetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}
           isFetchingNextPage={isFetchingNextPage}

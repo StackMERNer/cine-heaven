@@ -26,7 +26,7 @@ const GenreList: React.FC<GenreListProps> = ({
     >
       {genres.map((genre) => (
         <Link
-          to={`/discover/${mediaType}/${genre.id}?name=${genre.name}`}
+          to={`/discover/${mediaType}/${genre.id}?genre=${genre.name}`}
           key={genre.id}
           className="p-2 block hover:text-brand-primary cursor-pointer"
         >
