@@ -61,6 +61,12 @@ const SearchBar: React.FC = () => {
         setLoading(false);
       });
   };
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
   return (
     <div className="relative">
       <div className="gap-2">
@@ -68,6 +74,7 @@ const SearchBar: React.FC = () => {
           <input
             type="text"
             value={query}
+            onKeyDown={handleKeyPress}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search for movies or TV shows..."
             className="pl-3 input input-bordered w-full sm:w-[50vw] bg-dark-secondary"
