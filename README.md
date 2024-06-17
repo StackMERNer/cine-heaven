@@ -32,8 +32,8 @@ Welcome to the Movie/TV Show Explorer! This website allows you to search for mov
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/movie-tv-explorer.git
-   cd movie-tv-explorer
+   git clone https://github.com/StackMERNer/cine-heaven.git
+   cd cine-heaven
    ```
 
 2. Install dependencies:
