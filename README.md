@@ -75,4 +75,4 @@ Welcome to the Movie/TV Show Explorer! This website allows you to search for mov
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 Happy exploring!
-```
+
