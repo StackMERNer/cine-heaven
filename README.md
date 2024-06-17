@@ -48,10 +48,10 @@ Welcome to the Movie/TV Show Explorer! This website allows you to search for mov
 
 4. Start the development server:
    ```bash
-   npm start
+   npm run dev
    ```
 
-5. Open your browser and navigate to `http://localhost:3000`.
+5. Open your browser and navigate to `http://localhost:5173`.
 
 ## Usage
 
