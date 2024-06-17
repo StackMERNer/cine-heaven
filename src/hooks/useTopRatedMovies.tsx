@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
-import { Movie } from "./usePopularMovies";
+import { Movie } from "./useMovies";
+
 
 interface Dates {
   maximum: string;
