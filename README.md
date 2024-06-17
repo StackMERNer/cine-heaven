@@ -43,7 +43,7 @@ Welcome to the Movie/TV Show Explorer! This website allows you to search for mov
 
 3. Create a `.env` file in the root directory and add your TMDB API key:
    ```env
-   REACT_APP_TMDB_API_KEY=your_tmdb_api_key
+   VITE_REACT_APP_API_KEY=your_tmdb_api_key
    ```
 
 4. Start the development server:
