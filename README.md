@@ -23,7 +23,7 @@ Welcome to the Movie/TV Show Explorer! This website allows you to search for mov
 
 ## Technologies Used
 
-- **Frontend:** React, TypeScript, Tailwind CSS, DaisyUI, React Router
+- **Frontend:** React, TypeScript, Tailwind CSS, DaisyUI, React Router, React Query
 - **Backend:** TMDB API
 - **State Management:** React Hooks
 - **Styling:** Tailwind CSS, DaisyUI
