@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
-import { Movie } from "./usePopularMovies";
+import { Movie } from "./useMovies";
 
 interface Dates {
   maximum: string;
@@ -15,7 +15,8 @@ interface UpcomingMoviesResponse {
   total_results: number;
 }
 const useUpcomingMovies = () => {
-  const [upComingMovieData, setUpcomingMovieData] = useState<UpcomingMoviesResponse>();
+  const [upComingMovieData, setUpcomingMovieData] =
+    useState<UpcomingMoviesResponse>();
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -32,7 +33,7 @@ const useUpcomingMovies = () => {
         setIsLoading(false);
       });
   }, []);
-  return {  upComingMovieData, error, isLoading };
+  return { upComingMovieData, error, isLoading };
 };
 
 export default useUpcomingMovies;

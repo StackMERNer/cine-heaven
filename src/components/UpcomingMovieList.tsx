@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import { Movie } from "../hooks/usePopularMovies";
+import { Movie } from "../hooks/useMovies";
+
 const UpcomingMovieList = ({
   movies,
   className,
